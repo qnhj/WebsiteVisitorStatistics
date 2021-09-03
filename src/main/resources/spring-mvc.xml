@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--  包扫描  -->
+    <context:component-scan base-package="xyz.baochao.controller"/>
+
+    <!--  注解支持  -->
+    <mvc:annotation-driven/>
+
+    <!--  静态资源过滤  -->
+    <mvc:default-servlet-handler/>
+
+    <!--  视图解析器  -->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--  拦截器  -->
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 拦截所有mvc控制器 -->
+            <mvc:mapping path="/**"/>
+            <!-- mvc:exclude-mapping是另外一种拦截，它可以在你后来的测试中对某个页面进行不拦截，这样就不用在
+                LoginInterceptor的preHandler方法里面获取不拦截的请求uri地址了(优选) -->
+            <mvc:exclude-mapping path="/user/login" />
+            <mvc:exclude-mapping path="/login.html" />
+            <mvc:exclude-mapping path="/msg/add" />
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/html/**"/>
+            <mvc:exclude-mapping path="/txt.html" />
+            <mvc:exclude-mapping path="/password.html" />
+            <bean class="xyz.baochao.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <!-- 拦截所有mvc控制器 -->
+            <mvc:mapping path="/login.html"/>
+            <bean class="xyz.baochao.interceptor.LoginHtmlInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+</beans>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.baochao.dao.UserLoginMapper">
+
+    <insert id="addUserLogin" parameterType="xyz.baochao.pojo.UserLogin">
+        insert into userlogin
+        values (#{loginUuid}, #{userName}, #{loginTime},
+                #{loginIp}, #{loginRemarks}, #{msgUuid})
+    </insert>
+
+    <select id="selectLoginMsg" resultType="xyz.baochao.pojo.UserLogin" parameterType="java.util.Map">
+        select *
+        from userlogin
+        where userName = #{userName}
+        order by loginTime desc
+        limit #{loginBeginNum},#{loginQuantity}
+
+    </select>
+
+    <select id="selectLoginAllNum" resultType="int" parameterType="java.lang.String">
+        select count(loginUuid)
+        from userlogin
+        <if test="userName != null">
+            where userName = #{userName}
+        </if>
+    </select>
+
+</mapper>

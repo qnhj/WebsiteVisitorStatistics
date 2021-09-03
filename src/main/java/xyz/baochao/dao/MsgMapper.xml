@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.baochao.dao.MsgMapper">
+
+    <insert id="addMsg" parameterType="xyz.baochao.pojo.Msg">
+        insert into msg
+        values (#{uuid}, #{time}, #{protocol},
+                #{remoteAddr}, #{remotePort}, #{method},
+                #{locale}, #{remoteUser}, #{queryString},
+                #{osFamily}, #{osName}, #{uaName},
+                #{uaFamily}, #{browserVersion}, #{deviceType},
+                #{type}, #{remarks}, #{mark},
+                #{markRemarks}, #{admin}, #{url})
+    </insert>
+
+    <select id="selectMe" parameterType="java.util.Map" resultType="xyz.baochao.pojo.Msg">
+        select *
+        from msg
+        where admin = #{userName}
+        order by time desc
+        limit #{beginNum},#{quantity}
+    </select>
+
+    <select id="selectMeAllNum" resultType="int" parameterType="java.lang.String">
+        select count(uuid)
+        from msg
+        <if test="userName != null">
+            where admin = #{userName}
+        </if>
+    </select>
+
+    <select id="selectOne" parameterType="java.lang.String" resultType="xyz.baochao.pojo.Msg">
+        select * from msg where uuid=#{uuid}
+    </select>
+
+</mapper>

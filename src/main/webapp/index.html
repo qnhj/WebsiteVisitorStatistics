@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>用户中心</title>
+    <link href="./css/stylezy.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div id="head">
+    <h1 id="biaoTi">用户中心</h1>
+</div>
+<div id="body">
+    <div id="caiDan">
+        <h2>菜单</h2>
+        <ul id="ul">
+            <li><a href="javascript:void(0);" id="cdOne">记录查询</a></li>
+            <li><a href="javascript:void(0);" id="cdTwo">登录记录</a></li>
+            <li><a href="javascript:void(0);" id="cdThree">记录方法</a></li>
+            <li><a href="javascript:void(0);" id="cdFour">账户设置</a></li>
+            <li><a href="javascript:void(0);" id="cdexit">退出登录</a></li>
+        </ul>
+    </div>
+    <div id="yeMian">
+        <iframe src="javascript:void(0);" frameborder="0" id="zhanShi"></iframe>
+    </div>
+</div>
+<div id="foot"></div>
+
+
+
+
+
+<script type="text/javascript">
+    window.onload = function(){ //当页面加载完成之后绑定事件
+        var mb = document.getElementById("zhanShi");
+        var one = document.getElementById("cdOne");
+        var two = document.getElementById("cdTwo");
+        var three = document.getElementById("cdThree");
+        var four = document.getElementById("cdFour");
+        var exit = document.getElementById("cdexit");
+
+        //默认加载第一个菜单
+        mb.src = "./msg/select/me";
+        one.style = "background-color: #107ec7; color: white;";
+        two.style = "";
+        three.style = "";
+        four.style = "";
+        exit.style = "";
+
+        //绑定菜单一
+        one.onclick = function(){
+            mb.src = "./msg/select/me";
+            one.style = "background-color: #107ec7; color: white;";
+            two.style = "";
+            three.style = "";
+            four.style = "";
+            exit.style = "";
+        }
+        //绑定菜单二
+        two.onclick = function(){
+            mb.src = "./loginMsg/select/me";
+            one.style = "";
+            two.style = "background-color: #107ec7; color: white;";
+            three.style = "";
+            four.style = "";
+            exit.style = "";
+        }
+        //绑定菜单三
+        three.onclick = function(){
+            mb.src = "./user/addTxt";
+            one.style = "";
+            two.style = "";
+            three.style = "background-color: #107ec7; color: white;";
+            four.style = "";
+            exit.style = "";
+        }
+        //绑定关于
+        four.onclick = function(){
+            mb.src = "./user/settings";
+            one.style = "";
+            two.style = "";
+            three.style = "";
+            four.style = "background-color: #107ec7; color: white;";
+            exit.style = "";
+        }
+        //绑定退出登录
+        exit.onclick = function(){
+            mb.src = "./html/exit.html";
+            one.style = "";
+            two.style = "";
+            three.style = "";
+            four.style = "";
+            exit.style = "background-color: #107ec7; color: white;";
+        }
+    }
+</script>
+</body>
+</html>

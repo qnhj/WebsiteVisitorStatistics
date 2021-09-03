@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xyz.baochao.dao.UserMapper">
+
+    <!--  登录  -->
+    <select id="userLogin" parameterType="java.util.Map" resultType="xyz.baochao.pojo.User">
+        select *
+        from user
+        where userName = #{userName}
+          and userPw = #{userPw}
+    </select>
+
+    <update id="userLoginIndexFalse" parameterType="java.util.Map">
+        update user set userIndex=userIndex+1 where userName=#{userName}
+    </update>
+    <update id="userLoginIndexTrue" parameterType="java.lang.String">
+        update user set userIndex=0 where userUuid=#{uuid}
+    </update>
+
+</mapper>
