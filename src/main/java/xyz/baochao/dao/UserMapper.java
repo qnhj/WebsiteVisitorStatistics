@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import xyz.baochao.pojo.User;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -16,5 +17,13 @@ public interface UserMapper {
     User userLogin(Map<String,String> map);
 
     int userLoginIndexFalse(Map<String,String> map);
+    //错误次数清零
     int userLoginIndexTrue(String uuid);
+
+    int upDataUserName(Map map);
+    int upDataUserPw(Map map);
+
+    List<User> selectLock(int i);
+
+
 }

@@ -57,4 +57,5 @@ public class IUserLoginServiceImpl implements IUserLoginService {
         List<UserLogin> msgs = userLoginMapper.selectLoginMsg(map);
         return msgs;
     }
+
 }

@@ -3,6 +3,9 @@ package xyz.baochao.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import xyz.baochao.pojo.User;
+import xyz.baochao.pojo.UserLogin;
+import xyz.baochao.service.IUserLoginService;
 import xyz.baochao.service.IUserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    IUserService iUserService;
+    private IUserService iUserService;
 
     @ResponseBody
     @PostMapping("/login")
@@ -62,7 +66,44 @@ public class UserController {
     }
 
     @GetMapping("/settings")
-    public String userSettingIndex(){
+    public String userSettingIndex(HttpSession session){
         return "UserSettings";
     }
+
+    @PostMapping("/upData/userPw")
+    @ResponseBody
+    public String updataUserPw(HttpServletRequest request){
+        return iUserService.userUpDataUserPw(request)+"";
+    }
+
+    @PostMapping("/upData/userName")
+    @ResponseBody
+    public String updataUserName(HttpServletRequest request){
+        return iUserService.userUpDataUserName(request)+"";
+    }
+
+    @RequestMapping("/admin")
+    public String adminHelp(HttpSession session,HttpServletRequest request){
+        User user = (User) session.getAttribute("user");
+        if (user.getAdmin()==1){
+            //查询被锁定的账户
+            List<User> userLogins = iUserService.selectLock(0);
+            request.setAttribute("loginsUser",userLogins);
+        }else if (user.getAdmin() == 2){
+            //查询被锁定的管理员
+            List<User> userLogins = iUserService.selectLock(1);
+            request.setAttribute("loginsUser",userLogins);
+        }else {
+            return "UserSettings";
+        }
+        return "adminHelp";
+    }
+
+    @RequestMapping("/admin/do")
+    public String adminHelpOne(String uuid){
+        iUserService.userAdmin(uuid);
+        return "adminHelp";
+    }
+
+
 }

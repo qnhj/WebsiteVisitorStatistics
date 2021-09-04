@@ -36,4 +36,8 @@
         select * from msg where uuid=#{uuid}
     </select>
 
+    <update id="upDataAdmin" parameterType="java.util.Map">
+        update msg set admin=#{newUserName} where admin=#{oldUserName}
+    </update>
+
 </mapper>

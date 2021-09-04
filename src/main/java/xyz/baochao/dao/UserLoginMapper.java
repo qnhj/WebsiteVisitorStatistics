@@ -10,4 +10,5 @@ public interface UserLoginMapper {
     int addUserLogin(UserLogin userLogin);
     List<UserLogin> selectLoginMsg(Map map);
     int selectLoginAllNum(String uuid);
+    int upDataUserName(Map map);
 }

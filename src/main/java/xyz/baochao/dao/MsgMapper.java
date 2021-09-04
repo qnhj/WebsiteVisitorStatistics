@@ -10,4 +10,6 @@ public interface MsgMapper {
     List<Msg> selectMe(Map map);
     int selectMeAllNum(String userName);
     Msg selectOne(String uuid);
+    //修改记录的用户
+    int upDataAdmin(Map map);
 }

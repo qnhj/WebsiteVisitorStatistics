@@ -20,4 +20,15 @@
         update user set userIndex=0 where userUuid=#{uuid}
     </update>
 
+    <update id="upDataUserName" parameterType="java.util.Map">
+        update user set userName=#{newUserName} where userUuid=#{uuid}
+    </update>
+    <update id="upDataUserPw" parameterType="java.util.Map">
+        update user set userPw=#{newUserPw} where userUuid=#{uuid}
+    </update>
+
+    <select id="selectLock" resultType="xyz.baochao.pojo.User" parameterType="int">
+        select * from user where admin=#{i} and userIndex>=3
+    </select>
+
 </mapper>

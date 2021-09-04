@@ -28,4 +28,9 @@
         </if>
     </select>
 
+    <update id="upDataUserName" parameterType="java.util.Map">
+        update userlogin set userName=#{newUserName} where userName=#{oldUserName}
+    </update>
+
+
 </mapper>
