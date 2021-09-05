@@ -13,4 +13,6 @@ public interface IMsgService {
     int selectMeAllNum(String userName);
     Msg selectOne(String uuid);
     boolean updataChangeMark(Map map);
+    boolean updataChangeMarkRemarks(Map map);
+    boolean updataChangeRemarks(Map map);
 }

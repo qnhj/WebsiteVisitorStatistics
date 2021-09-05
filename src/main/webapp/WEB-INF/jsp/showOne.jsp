@@ -101,28 +101,24 @@
     </tr>
     <tr>
         <td>标星备注</td>
-        <td id="msgMarkRemarks">(取消标记会删除标星备注)<br>${msg.markRemarks}</td>
+        <td id="msgMarkRemarks">(取消标记会清除标星备注内容)<br>${msg.markRemarks}</td>
     </tr>
     <tr>
-        <form action="upDataOne" method="get">
-            <td><input type="text" name="remarks" value="${msg.remarks}"></td>
-            <td>
-                <input type="hidden" value="${msg.uuid}" name="uuid">
-                <input type="submit" value="添加备注">
-            </td>
-        </form>
+        <td><input type="text" id="remarks" value="${msg.remarks}"></td>
+        <td>
+            <input type="button" value="修改备注" onclick="changeRemarks()">
+        </td>
     </tr>
+
     <c:if test="${msg.mark}">
         <tr>
-            <form action="upDataOne" method="get">
-                <td><input type="text" name="markRemarks" value="${msg.markRemarks}"></td>
-                <td>
-                    <input type="hidden" value="${msg.uuid}" name="uuid">
-                    <input type="submit" value="添加标星备注">
-                </td>
-            </form>
+            <td><input id="markRemarks" type="text" value="${msg.markRemarks}"></td>
+            <td>
+                <input type="button" value="修改标星备注" onclick="changeMarkRemarks()">
+            </td>
         </tr>
     </c:if>
+
 </table>
 
 <div id="message"></div>
@@ -170,7 +166,77 @@
         }
         xmlhttp.open("POST", "<%=request.getContextPath() %>/msg/updata/changeMark", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("msgUuid=" + uuid +"&msgMark=" + msgMark);
+        xmlhttp.send("msgUuid=" + uuid + "&msgMark=" + msgMark);
+    }
+
+    //修改备注操作
+    function changeRemarks() {
+
+        var uuid = document.getElementById("uuiduuid").value;
+        var remarks = document.getElementById("remarks").value;
+
+        //验证用户名和密码
+        var xmlhttp;
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {// code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    var zhuangTai = xmlhttp.responseText;
+                    if (zhuangTai == 'true') {
+                        //刷新页面
+                        window.location.reload();
+                    } else {
+                        document.getElementById("message").innerHTML = "<p style='color: red;'>修改备注失败</p>";
+                    }
+                } else {
+                    document.getElementById("message").innerHTML = "<p style='color: red;'>错误代码：" + xmlhttp.status + "</p>";
+                }
+            } else {
+                document.getElementById("message").innerHTML = "<p style='color: red;'>正在修改</p>";
+            }
+        }
+        xmlhttp.open("POST", "<%=request.getContextPath() %>/msg/updata/changeRemarks", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("msgUuid=" + uuid + "&remarks=" + remarks);
+    }
+
+    //修改次标星备注
+    function changeMarkRemarks() {
+
+        var uuid = document.getElementById("uuiduuid").value;
+        var markRemarks = document.getElementById("markRemarks").value;
+
+        //验证用户名和密码
+        var xmlhttp;
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {// code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    var zhuangTai = xmlhttp.responseText;
+                    if (zhuangTai == 'true') {
+                        //刷新页面
+                        window.location.reload();
+                    } else {
+                        document.getElementById("message").innerHTML = "<p style='color: red;'>修改标星备注失败</p>";
+                    }
+                } else {
+                    document.getElementById("message").innerHTML = "<p style='color: red;'>错误代码：" + xmlhttp.status + "</p>";
+                }
+            } else {
+                document.getElementById("message").innerHTML = "<p style='color: red;'>正在修改</p>";
+            }
+        }
+        xmlhttp.open("POST", "<%=request.getContextPath() %>/msg/updata/changeMarkRemarks", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("msgUuid=" + uuid + "&markRemarks=" + markRemarks);
     }
 
 </script>

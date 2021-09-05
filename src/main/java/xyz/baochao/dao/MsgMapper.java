@@ -14,4 +14,5 @@ public interface MsgMapper {
     int upDataAdmin(Map map);
     int upMark(Map map);
     int upMarkRemarks(Map map);
+    int upRemarks(Map map);
 }

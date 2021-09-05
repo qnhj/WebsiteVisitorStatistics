@@ -83,6 +83,17 @@ public class IMsgServiceImpl implements IMsgService {
         return true;
     }
 
+    @Override
+    public boolean updataChangeMarkRemarks(Map map) {
+        msgMapper.upMarkRemarks(map);
+        return true;
+    }
+    @Override
+    public boolean updataChangeRemarks(Map map) {
+        msgMapper.upRemarks(map);
+        return true;
+    }
+
     /**
      * 通过请求获取一个Msg实体类对象
      * @param request

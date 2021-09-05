@@ -85,4 +85,22 @@ public class MsgController {
         return iMsgService.updataChangeMark(map)+"";
     }
 
+    @PostMapping("/updata/changeMarkRemarks")
+    @ResponseBody
+    public String updataChangeMarkRemarks(String msgUuid,String markRemarks){
+        Map map = new HashMap();
+        map.put("uuid",msgUuid);
+        map.put("markRemarks",markRemarks);
+        return iMsgService.updataChangeMarkRemarks(map)+"";
+    }
+
+    @PostMapping("/updata/changeRemarks")
+    @ResponseBody
+    public String updataChangeRemarks(String msgUuid,String remarks){
+        Map map = new HashMap();
+        map.put("uuid",msgUuid);
+        map.put("remarks",remarks);
+        return iMsgService.updataChangeRemarks(map)+"";
+    }
+
 }

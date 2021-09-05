@@ -48,4 +48,8 @@
         update msg set markRemarks=#{markRemarks} where uuid=#{uuid}
     </update>
 
+    <update id="upRemarks" parameterType="java.util.Map">
+        update msg set remarks=#{remarks} where uuid=#{uuid}
+    </update>
+
 </mapper>
