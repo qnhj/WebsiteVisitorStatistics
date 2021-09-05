@@ -12,4 +12,6 @@ public interface MsgMapper {
     Msg selectOne(String uuid);
     //修改记录的用户
     int upDataAdmin(Map map);
+    int upMark(Map map);
+    int upMarkRemarks(Map map);
 }

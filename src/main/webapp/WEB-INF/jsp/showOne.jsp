@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: An
@@ -91,11 +92,16 @@
     </tr>
     <tr>
         <td>标星标记</td>
-        <td>${msg.mark}<a href="mark?id=${msg.mark}&uuid=${msg.uuid}">变更标记</a></td>
+        <td>
+            <span>${msg.mark}</span>
+            <input id="uuiduuid" value="${msg.uuid}" style="display:none" type="text">
+            <input id="msgMark" value="${msg.mark}" style="display:none" type="text">
+            <span><input type="button" value="变更标记" id="changeMsgMark" onclick="changeMark();"></span>
+        </td>
     </tr>
     <tr>
         <td>标星备注</td>
-        <td>(取消标记会删除标星备注)<br>${msg.markRemarks}</td>
+        <td id="msgMarkRemarks">(取消标记会删除标星备注)<br>${msg.markRemarks}</td>
     </tr>
     <tr>
         <form action="upDataOne" method="get">
@@ -105,7 +111,6 @@
                 <input type="submit" value="添加备注">
             </td>
         </form>
-
     </tr>
     <c:if test="${msg.mark}">
         <tr>
@@ -119,6 +124,56 @@
         </tr>
     </c:if>
 </table>
+
+<div id="message"></div>
+
+<br>
+<input type="button" value="返回上一级" onclick="pageExit();">
+
+
+<script type="text/javascript">
+
+    //返回上一页
+    function pageExit() {
+        window.history.back();
+    }
+
+    //标星操作
+    function changeMark() {
+
+        var uuid = document.getElementById("uuiduuid").value;
+        var msgMark = document.getElementById("msgMark").value;
+
+        //验证用户名和密码
+        var xmlhttp;
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {// code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    var zhuangTai = xmlhttp.responseText;
+                    if (zhuangTai == 'true') {
+                        //刷新页面
+                        window.location.reload();
+                    } else {
+                        document.getElementById("message").innerHTML = "<p style='color: red;'>修改标记失败</p>";
+                    }
+                } else {
+                    document.getElementById("message").innerHTML = "<p style='color: red;'>错误代码：" + xmlhttp.status + "</p>";
+                }
+            } else {
+                document.getElementById("message").innerHTML = "<p style='color: red;'>正在修改</p>";
+            }
+        }
+        xmlhttp.open("POST", "<%=request.getContextPath() %>/msg/updata/changeMark", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("msgUuid=" + uuid +"&msgMark=" + msgMark);
+    }
+
+</script>
 
 
 </body>

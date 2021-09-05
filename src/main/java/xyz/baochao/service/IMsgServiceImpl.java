@@ -74,6 +74,15 @@ public class IMsgServiceImpl implements IMsgService {
         return msgMapper.selectOne(uuid);
     }
 
+    @Override
+    @Transactional
+    public boolean updataChangeMark(Map map) {
+        msgMapper.upMark(map);
+        map.put("markRemarks",DateTimeUtil.getDateTime()+"修改了标记");
+        msgMapper.upMarkRemarks(map);
+        return true;
+    }
+
     /**
      * 通过请求获取一个Msg实体类对象
      * @param request

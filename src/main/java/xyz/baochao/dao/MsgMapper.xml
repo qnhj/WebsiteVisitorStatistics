@@ -40,4 +40,12 @@
         update msg set admin=#{newUserName} where admin=#{oldUserName}
     </update>
 
+    <update id="upMark" parameterType="java.util.Map">
+        update msg set mark=#{mark} where uuid=#{uuid}
+    </update>
+
+    <update id="upMarkRemarks" parameterType="java.util.Map">
+        update msg set markRemarks=#{markRemarks} where uuid=#{uuid}
+    </update>
+
 </mapper>
