@@ -14,4 +14,7 @@ public interface IUserService {
     boolean userUpDataUserPw(HttpServletRequest request);
     boolean userAdmin(String uuid);
     List<User> selectLock(int i);
+    boolean addUser(String userName,String userPw,HttpSession session);
+    //验证用户名是否可用
+    boolean addUserUserName(String userName,HttpSession session);
 }

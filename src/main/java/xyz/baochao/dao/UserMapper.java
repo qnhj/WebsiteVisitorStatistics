@@ -25,5 +25,9 @@ public interface UserMapper {
 
     List<User> selectLock(int i);
 
+    int addUser(User user);
+
+    int userName(String userName);
+
 
 }

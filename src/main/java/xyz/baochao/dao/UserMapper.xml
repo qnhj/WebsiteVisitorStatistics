@@ -14,21 +14,41 @@
     </select>
 
     <update id="userLoginIndexFalse" parameterType="java.util.Map">
-        update user set userIndex=userIndex+1 where userName=#{userName}
+        update user
+        set userIndex=userIndex + 1
+        where userName = #{userName}
     </update>
     <update id="userLoginIndexTrue" parameterType="java.lang.String">
-        update user set userIndex=0 where userUuid=#{uuid}
+        update user
+        set userIndex=0
+        where userUuid = #{uuid}
     </update>
 
     <update id="upDataUserName" parameterType="java.util.Map">
-        update user set userName=#{newUserName} where userUuid=#{uuid}
+        update user
+        set userName=#{newUserName}
+        where userUuid = #{uuid}
     </update>
     <update id="upDataUserPw" parameterType="java.util.Map">
-        update user set userPw=#{newUserPw} where userUuid=#{uuid}
+        update user
+        set userPw=#{newUserPw}
+        where userUuid = #{uuid}
     </update>
 
     <select id="selectLock" resultType="xyz.baochao.pojo.User" parameterType="int">
-        select * from user where admin=#{i} and userIndex>=3
+        select *
+        from user
+        where admin = #{i}
+          and userIndex >= 3
+    </select>
+
+    <insert id="addUser" parameterType="xyz.baochao.pojo.User">
+        insert into user
+        values (#{userUuid}, #{userName}, #{userPw}, #{userRemarks}, #{userIndex})
+    </insert>
+
+    <select id="userName" parameterType="java.lang.String" resultType="int">
+        select count(userUuid) from user where userName=#{userName}
     </select>
 
 </mapper>

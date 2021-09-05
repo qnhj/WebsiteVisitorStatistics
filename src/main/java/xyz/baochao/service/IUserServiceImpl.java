@@ -153,6 +153,37 @@ public class IUserServiceImpl implements IUserService {
         return userList;
     }
 
+    @Override
+    public boolean addUser(String userName, String userPw ,HttpSession session) {
+        if (session.getAttribute("newUserNameIndex") == null){
+            return false;
+        }
+        boolean newUserNameIndex = (boolean)session.getAttribute("newUserNameIndex");
+        if (!newUserNameIndex){
+            return false;
+        }
+        User user = new User();
+        user.setUserUuid(MyUuid.getUuid());
+        user.setUserName(userName);
+        user.setUserPw(userPw);
+        user.setUserIndex(0);
+        user.setAdmin(0);
+        user.setUserRemarks("注册时间："+DateTimeUtil.getDateTime());
+        userMapper.addUser(user);
+        return true;
+    }
+
+    @Override
+    public boolean addUserUserName(String userName,HttpSession session) {
+        session.setAttribute("newUserNameIndex",false);
+        int i = userMapper.userName(userName);
+        if (i == 0){
+            session.setAttribute("newUserNameIndex",true);
+            return true;
+        }
+        return false;
+    }
+
     public static UserLogin getUserLogin(HttpServletRequest request, String userName, Msg msg) {
         UserLogin userLogin = new UserLogin();
         userLogin.setLoginUuid(MyUuid.getUuid());

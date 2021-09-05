@@ -105,5 +105,25 @@ public class UserController {
         return "adminHelp";
     }
 
+    @PostMapping("/addUser")
+    @ResponseBody
+    public String addUser(String userName,String pw,HttpSession session){
+        if (userName != null && !("".equals(userName))){
+            if (pw != null && !("".equals(pw))){
+                return iUserService.addUser(userName, pw,session)+"";
+            }
+        }
+        return "false";
+    }
+
+    @PostMapping("/addUser/userName")
+    @ResponseBody
+    public String addUserUserName(String userName,HttpSession session){
+        if (userName != null && !("".equals(userName))){
+            return iUserService.addUserUserName(userName, session)+"";
+        }
+        return "false";
+    }
+
 
 }
