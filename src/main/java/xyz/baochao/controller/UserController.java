@@ -107,10 +107,10 @@ public class UserController {
 
     @PostMapping("/addUser")
     @ResponseBody
-    public String addUser(String userName,String pw,HttpSession session){
+    public String addUser(String userName,String userPw,HttpSession session){
         if (userName != null && !("".equals(userName))){
-            if (pw != null && !("".equals(pw))){
-                return iUserService.addUser(userName, pw,session)+"";
+            if (userPw != null && !("".equals(userPw))){
+                return iUserService.addUser(userName, userPw,session)+"";
             }
         }
         return "false";

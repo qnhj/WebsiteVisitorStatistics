@@ -44,7 +44,7 @@
 
     <insert id="addUser" parameterType="xyz.baochao.pojo.User">
         insert into user
-        values (#{userUuid}, #{userName}, #{userPw}, #{userRemarks}, #{userIndex})
+        values (#{userUuid}, #{userName}, #{userPw}, #{admin} ,#{userRemarks}, #{userIndex})
     </insert>
 
     <select id="userName" parameterType="java.lang.String" resultType="int">
